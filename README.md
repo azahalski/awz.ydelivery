@@ -432,11 +432,61 @@ class handlersDelivery {
 }
 ```
 
+**Пример получения списка ПВЗ со своих скриптов**
+
+```php
+use Bitrix\Main\Loader;
+use Awz\Ydelivery\Helper;
+use Awz\Ydelivery\Api\Controller\PickPoints;
+use Bitrix\Main\Type\ParameterDictionary;
+Loader::includeModule('awz.ydelivery');
+class myController extends PickPoints {
+
+    public function configureActions()
+    {
+        return array(
+            'list' => array(
+                'prefilters' => array(
+                )
+            )
+        );
+    }
+
+}
+
+$profileId = 101;
+
+$controller = new myController();
+$api = Helper::getApiByProfileId($profileId);
+
+$locationName = 'Новосибирск';
+
+$api->setCacheParams(md5(serialize(array($locationName, 'geo_id'))), 2592000);
+$geoIdResult = $api->geo_id($locationName);
+$geoId = 0;
+if($geoIdResult->isSuccess()){
+    $geoIdData = $geoIdResult->getData();
+    if(isset($geoIdData['result']['variants'][0]['geo_id'])){
+        $geoId = $geoIdData['result']['variants'][0]['geo_id'];
+    }
+}else{
+    $api->cleanCache();
+}
+
+$controllerResult = $controller->run(
+'list',
+[new ParameterDictionary(['geo_id'=>$geoId, 'profile_id'=>$profileId])]
+);
+if(empty($controller->getErrors())){
+    echo'<pre>';print_r($controllerResult);echo'</pre>';
+}
+```
+
 <!-- event-end -->
 
 <!-- cl-start -->
 ## История версий
 
-https://github.com/zahalski/awz.ydelivery/blob/master/CHANGELOG.md
+https://github.com/azahalski/awz.ydelivery/blob/master/CHANGELOG.md
 
 <!-- cl-end -->
