@@ -432,7 +432,13 @@ class handlersDelivery {
 }
 ```
 
-**Пример получения списка ПВЗ со своих скриптов**
+<!-- event-end -->
+
+## 3. Для разработчиков (примеры использования)
+
+<!-- dev-start -->
+
+**Получение списка ПВЗ по городу**
 
 ```php
 use Bitrix\Main\Loader;
@@ -482,7 +488,7 @@ if(empty($controller->getErrors())){
 }
 ```
 
-<!-- event-end -->
+<!-- dev-end -->
 
 <!-- cl-start -->
 ## История версий
