@@ -40,7 +40,7 @@ print(SITE_CHARSET);
 
 #### 3.2. Загружаем модуль в Битрикс
 
-1) Скачайте необходимую версию модуля с github, например, со страницы [releases](https://github.com/zahalski/awz.ydelivery/releases)
+1) Скачайте необходимую версию модуля с github, например, со страницы [releases](https://github.com/azahalski/awz.ydelivery/releases)
 2) Распакуйте архив
 3) Загрузите модуль
    

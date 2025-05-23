@@ -88,6 +88,8 @@ if(!window.awz_yd_modal){
             }
         },
         showGpsAddress: function(address, toponim){
+            var replaceAdress = true;
+            var replaceAdressNoEmpty = true;
             if($('#AWZ_YD_DOST_INFO').length){
                 $('#AWZ_YD_DOST_INFO').html(address);
             }
@@ -98,10 +100,10 @@ if(!window.awz_yd_modal){
             }
             $('#AWZ_YD_CORD_ADRESS').val(address);
 
-            if(toponim){
+            if(toponim && replaceAdress){
                 var form = $('#AWZ_YD_DOST_LINK').parents('form');
                 form.find('input, textarea').each(function(){
-                    if(!$(this).val() && $(this).attr('autocomplete') == 'address'){
+                    if((!$(this).val() || replaceAdressNoEmpty) && $(this).attr('autocomplete') == 'address'){
                         $(this).val(toponim);
                         return;
                     }
