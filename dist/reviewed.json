@@ -1,0 +1,351 @@
+{
+  "success": true,
+  "requestId": "awz.ydelivery-1789042616",
+  "data": {
+    "vulnerabilities": [
+      {
+        "file": "admin/offers_list_edit.php",
+        "line": "92-95,257,1545",
+        "type": "CSRF",
+        "severity": "medium",
+        "description": "Подтверждена уязвимость: отсутствие проверки check_bitrix_sessid() в обработчиках AJAX-запросов с действием ($_REQUEST['action']). Файл обрабатывает критические операции по созданию и изменению офферов доставки без защиты от CSRF. Пользователь может быть обманут к выполнению действий через поддельные формы.",
+        "recommendation": "Добавить проверку check_bitrix_sessid() в начале каждого обработчика POST-запросов или использовать Bitrix\\Main\\Security\\Csrf.",
+        "fix": "// Before:\nif($_REQUEST['action'] == 'send_offer'){\n\n// After:\nif($_REQUEST['action'] == 'send_offer'){\n    if(!check_bitrix_sessid()) return;\n    // или:\n    // $csrf = new \\Bitrix\\Main\\Security\\Csrf();\n    // $csrf->check('');\n}",
+        "reviewed": {
+          "oldSeverity": "high",
+          "newSeverity": "medium",
+          "changed": true,
+          "category": "csrf-state-change",
+          "versionScope": "current",
+          "version": "current",
+          "currentVersionRelevance": "present-in-current-scan",
+          "action": "add-sessid-and-owner-checks",
+          "confidence": "medium",
+          "rationale": "Kept as medium because the finding describes state change without check_bitrix_sessid; raise only if cross-user deletion or higher-impact state change is confirmed."
+        },
+        "partner_disposition": {
+          "status": "accepted_risk",
+          "note": "",
+          "author": "Andrew Zahalski",
+          "updated_at": "2026-09-10T09:20:16+00:00"
+        }
+      },
+      {
+        "file": "admin/offers_list_edit.php",
+        "line": "43-44,157-199,271-421",
+        "type": "Cross-Site Scripting",
+        "severity": "medium",
+        "description": "Подозрение: прямое использование данных из $_REQUEST без экранирования в логике обработки. Хотя некоторые места используют htmlspecialcharsEx(), есть участки где данные передаются напрямую в API (например, route_points, contact info). Это может привести к XSS если данные из заказа содержат HTML/JS код.",
+        "recommendation": "Экранировать все пользовательские данные при выводе и использовать валидацию входных данных.",
+        "fix": "// Before:\n$prepareData['route_points'][0]['contact']['name'] = $_REQUEST['otp']['name'];\n\n// After:\n$prepareData['route_points'][0]['contact']['name'] = htmlspecialcharsEx(trim($_REQUEST['otp']['name']));",
+        "reviewed": {
+          "oldSeverity": "medium",
+          "newSeverity": "medium",
+          "changed": false,
+          "category": "xss-unclear-source",
+          "versionScope": "current",
+          "version": "current",
+          "currentVersionRelevance": "present-in-current-scan",
+          "action": "validate-source-and-fix-escaping",
+          "confidence": "low",
+          "rationale": "Adjusted conservatively because the journal does not clearly prove a low-privileged or public payload source. Confirm source permissions before treating as a blocker."
+        },
+        "partner_disposition": {
+          "status": "accepted_risk",
+          "note": "",
+          "author": "Andrew Zahalski",
+          "updated_at": "2026-09-10T09:20:16+00:00"
+        }
+      },
+      {
+        "file": "options.php",
+        "line": "125-126,135,331,644,731,769,828",
+        "type": "Insecure Deserialization",
+        "severity": "medium",
+        "description": "Подозрение: множество вызовов unserialize() для данных из Option хранилища модуля. Если злоумышленник сможет модифицировать stored options (через SQL injection или другой вектор), он может выполнить десериализацию произвольного объекта с эксплуатацией магических методов (__destruct, __wakeup).",
+        "recommendation": "Использовать unserialize() с параметром ['allowed_classes'=>false] или whitelist разрешенных классов.",
+        "fix": "// Before:\n$statusList = unserialize(Option::get($module_id, 'YD_STATUSLIST', '', ''));\n\n// After:\n$statusList = unserialize(Option::get($module_id, 'YD_STATUSLIST', '', ''), ['allowed_classes'=>false]);",
+        "reviewed": {
+          "oldSeverity": "medium",
+          "newSeverity": "medium",
+          "changed": false,
+          "category": "sql-injection",
+          "versionScope": "current",
+          "version": "current",
+          "currentVersionRelevance": "present-in-current-scan",
+          "action": "parameterize-query",
+          "confidence": "medium",
+          "rationale": "Kept as medium by default under the BUS Marketplace triage policy; raise only when exploit impact is proven beyond the journal text."
+        },
+        "partner_disposition": {
+          "status": "accepted_risk",
+          "note": "",
+          "author": "Andrew Zahalski",
+          "updated_at": "2026-09-10T09:20:16+00:00"
+        }
+      },
+      {
+        "file": "lib/ydapi.php",
+        "line": "405-414",
+        "type": "SSRF",
+        "severity": "medium",
+        "description": "Подозрение: HTTP-клиент Bitrix используется для запросов к внешним серверам. Метод setHeader позволяет устанавливать произвольные заголовки. При недостаточной валидации URL или заголовков возможен SSRF-запрос к внутренним ресурсам.",
+        "recommendation": "Валидировать все URL и заголовки перед отправкой запроса. Блокировать внутренние IP-адреса.",
+        "fix": "// Добавить валидацию URL перед запросом:\n$parseUrl = parse_url($url);\nif(in_array($parseUrl['host'], ['internal', 'localhost', '127.0.0.1'])) {\n    throw new Exception('Internal host blocked');\n}",
+        "reviewed": {
+          "oldSeverity": "medium",
+          "newSeverity": "medium",
+          "changed": false,
+          "category": "kept-as-reported",
+          "versionScope": "current",
+          "version": "current",
+          "currentVersionRelevance": "present-in-current-scan",
+          "action": "fix",
+          "confidence": "medium",
+          "rationale": "Severity left unchanged after review; no stronger Bitrix/BUS-specific downgrade condition was identified from the journal text alone."
+        },
+        "partner_disposition": {
+          "status": "accepted_risk",
+          "note": "",
+          "author": "Andrew Zahalski",
+          "updated_at": "2026-09-10T09:20:16+00:00"
+        }
+      },
+      {
+        "file": "lib/main.php",
+        "line": "190-205,294-333",
+        "type": "Authentication Bypass",
+        "severity": "medium",
+        "description": "Подозрение: динамический вызов функций через call_user_func($_REQUEST['action']). Массив $act содержит функции которые вызываются на основе пользовательского ввода без дополнительной проверки прав доступа.",
+        "recommendation": "Использовать whitelist допустимых значений action вместо прямого вызова через call_user_func.",
+        "fix": "// Before:\n$act[$_REQUEST['action']] = 'someFunction';\ncall_user_func($act[$_REQUEST['action']], $ID);\n\n// After:\n$allowedActions = ['action1', 'action2'];\nif(in_array($_REQUEST['action'], $allowedActions)) {\n    $act[$_REQUEST['action']]($ID);\n}",
+        "reviewed": {
+          "oldSeverity": "medium",
+          "newSeverity": "medium",
+          "changed": false,
+          "category": "authenticated-or-limited-authorization-bypass",
+          "versionScope": "current",
+          "version": "current",
+          "currentVersionRelevance": "present-in-current-scan",
+          "action": "verify-on-latest-version",
+          "confidence": "medium",
+          "rationale": "Set to medium because the finding describes authorization bypass or privilege misuse, but not a direct high-impact IDOR, financial bug, or confirmed account takeover in the journal text."
+        },
+        "partner_disposition": {
+          "status": "accepted_risk",
+          "note": "",
+          "author": "Andrew Zahalski",
+          "updated_at": "2026-09-10T09:20:16+00:00"
+        }
+      },
+      {
+        "file": "lib/api/controller/pickpoints.php",
+        "line": "23-44",
+        "type": "Authentication Bypass",
+        "severity": "medium",
+        "description": "Подозрение: контроллер использует Scope::AJAX фильтр но не включает Authentication или Csrf фильтры Bitrix. Prefilters настроены только на проверку AJAX и sign-параметров. Отсутствует защита от CSRF на уровне контроллера.",
+        "recommendation": "Добавить Bitrix\\Main\\Engine\\ActionFilter\\Csrf в prefilters контроллера.",
+        "fix": "// Before:\n'list' => array(\n    'prefilters' => array(\n        new Scope(Scope::AJAX),\n        new Sign(array('address','geo_id'))\n    )\n)\n\n// After:\n'list' => array(\n    'prefilters' => array(\n        new Scope(Scope::AJAX),\n        new \\Bitrix\\Main\\Engine\\ActionFilter\\Csrf(),\n        new Sign(array('address','geo_id'))\n    )\n)",
+        "reviewed": {
+          "oldSeverity": "low",
+          "newSeverity": "medium",
+          "changed": true,
+          "category": "authenticated-or-limited-authorization-bypass",
+          "versionScope": "current",
+          "version": "current",
+          "currentVersionRelevance": "present-in-current-scan",
+          "action": "verify-on-latest-version",
+          "confidence": "medium",
+          "rationale": "Set to medium because the finding describes authorization bypass or privilege misuse, but not a direct high-impact IDOR, financial bug, or confirmed account takeover in the journal text."
+        },
+        "partner_disposition": {
+          "status": "accepted_risk",
+          "note": "",
+          "author": "Andrew Zahalski",
+          "updated_at": "2026-09-10T09:20:16+00:00"
+        }
+      },
+      {
+        "file": "admin/offers_list_edit.php",
+        "line": "880,881,1654-1655,1888-1889,1907-1908,1932-1933",
+        "type": "Cross-Site Scripting",
+        "severity": "low",
+        "description": "Подозрение: вывод значений $_REQUEST['IFRAME_TYPE'] и $_REQUEST['IFRAME'] в hidden поля форм. Хотя это скрытые поля, они всё равно должны быть экранированы для предотвращения потенциального XSS.",
+        "recommendation": "Использовать htmlspecialcharsEx() для всех значений из $_REQUEST.",
+        "fix": "// Before:\n<input type=\"hidden\" name=\"IFRAME_TYPE\" value=\"<?=$_REQUEST['IFRAME_TYPE']?>\">\n\n// After:\n<input type=\"hidden\" name=\"IFRAME_TYPE\" value=\"<?echo htmlspecialcharsEx($_REQUEST['IFRAME_TYPE'])?>\">",
+        "reviewed": {
+          "oldSeverity": "low",
+          "newSeverity": "low",
+          "changed": false,
+          "category": "xss-unclear-source",
+          "versionScope": "current",
+          "version": "current",
+          "currentVersionRelevance": "present-in-current-scan",
+          "action": "validate-source-and-fix-escaping",
+          "confidence": "low",
+          "rationale": "Adjusted conservatively because the journal does not clearly prove a low-privileged or public payload source. Confirm source permissions before treating as a blocker."
+        },
+        "partner_disposition": {
+          "status": "accepted_risk",
+          "note": "",
+          "author": "Andrew Zahalski",
+          "updated_at": "2026-09-10T09:20:16+00:00"
+        }
+      },
+      {
+        "file": "lib/helper.php",
+        "line": "707",
+        "type": "Insecure Deserialization",
+        "severity": "low",
+        "description": "Подозрение: вызов unserialize() на переменной $valP. Требуется проверка контекста использования.",
+        "recommendation": "Добавить allowed_classes=>false в unserialize().",
+        "fix": "// Before:\n$valP = unserialize($valP);\n\n// After:\n$valP = unserialize($valP, ['allowed_classes'=>false]);",
+        "reviewed": {
+          "oldSeverity": "low",
+          "newSeverity": "low",
+          "changed": false,
+          "category": "kept-as-reported",
+          "versionScope": "current",
+          "version": "current",
+          "currentVersionRelevance": "present-in-current-scan",
+          "action": "fix",
+          "confidence": "medium",
+          "rationale": "Severity left unchanged after review; no stronger Bitrix/BUS-specific downgrade condition was identified from the journal text alone."
+        },
+        "partner_disposition": {
+          "status": "accepted_risk",
+          "note": "",
+          "author": "Andrew Zahalski",
+          "updated_at": "2026-09-10T09:20:16+00:00"
+        }
+      },
+      {
+        "file": "lib/checker.php",
+        "line": "139-140,169,197,228,434",
+        "type": "Insecure Deserialization",
+        "severity": "low",
+        "description": "Подозрение: множество вызовов unserialize() для данных из Option хранилища. Аналогично options.php - риск при компрометации хранимых данных.",
+        "recommendation": "Использовать ['allowed_classes'=>false] или whitelist классов.",
+        "fix": "// Before:\n$statusList = unserialize(Option::get(Handler::MODULE_ID, 'YD_STATUSLIST', '', ''));\n\n// After:\n$statusList = unserialize(Option::get(Handler::MODULE_ID, 'YD_STATUSLIST', '', ''), ['allowed_classes'=>false]);",
+        "reviewed": {
+          "oldSeverity": "low",
+          "newSeverity": "low",
+          "changed": false,
+          "category": "kept-as-reported",
+          "versionScope": "current",
+          "version": "current",
+          "currentVersionRelevance": "present-in-current-scan",
+          "action": "fix",
+          "confidence": "medium",
+          "rationale": "Severity left unchanged after review; no stronger Bitrix/BUS-specific downgrade condition was identified from the journal text alone."
+        },
+        "partner_disposition": {
+          "status": "accepted_risk",
+          "note": "",
+          "author": "Andrew Zahalski",
+          "updated_at": "2026-09-10T09:20:16+00:00"
+        }
+      },
+      {
+        "file": "install/admin/awz_ydelivery_offers_list_edit.php",
+        "line": "2",
+        "type": "Information Disclosure",
+        "severity": "low",
+        "description": "Файл install/admin/ просто подключает файлы из admin/. При деинсталляции модуля эти файлы удаляются, что является нормальным поведением. Однако стоит убедиться что install/index.php проверяет права администратора при установке.",
+        "recommendation": "Проверить install/index.php на наличие проверок прав доступа при выполнении установочных операций.",
+        "fix": "// Проверить install/index.php:\nglobal $APPLICATION;\nif ($APPLICATION->GetGroupRight('awz.ydelivery') < 'W') {\n    die('Access denied');\n}",
+        "reviewed": {
+          "oldSeverity": "low",
+          "newSeverity": "low",
+          "changed": false,
+          "category": "kept-as-reported",
+          "versionScope": "current",
+          "version": "current",
+          "currentVersionRelevance": "present-in-current-scan",
+          "action": "fix",
+          "confidence": "medium",
+          "rationale": "Severity left unchanged after review; no stronger Bitrix/BUS-specific downgrade condition was identified from the journal text alone."
+        },
+        "partner_disposition": {
+          "status": "accepted_risk",
+          "note": "",
+          "author": "Andrew Zahalski",
+          "updated_at": "2026-09-10T09:20:16+00:00"
+        }
+      }
+    ],
+    "summary": "Обнаружено 10 уязвимостей в 8 файлах при анализе 58 файлов модуля awz.ydelivery. Максимальная severity: high. Основные проблемы: отсутствие CSRF защиты в AJAX-обработчиках, небезопасная десериализация данных, потенциальный XSS в некоторых точках вывода.",
+    "scannedFiles": 58,
+    "riskLevel": "medium",
+    "auditedFiles": [
+      "lib/api/controller/pickpoints.php",
+      "lib/api/controller/standart.php",
+      "lib/ydapi.php",
+      "lib/main.php",
+      "admin/offers_list_edit.php",
+      "lib/checker.php",
+      "options.php",
+      "admin/offers_list.php",
+      "lib/helper.php",
+      "lib/handler.php",
+      "lib/handlersbx.php",
+      "lib/pvz.php",
+      "lib/pvzext.php",
+      "admin/pickpoint_ext.php",
+      "admin/pickpoint_list.php",
+      "include.php",
+      "install/index.php"
+    ],
+    "reviewSummary": {
+      "reviewedAt": "2026-09-10",
+      "method": "BUS-aware triage: preserve original finding fields except severity, add reviewed node with old severity and rationale.",
+      "totals": {
+        "vulnerabilities": 10,
+        "changedSeverity": 2,
+        "unchangedSeverity": 8
+      },
+      "rawSeverityCounts": {
+        "high": 1,
+        "medium": 4,
+        "low": 5
+      },
+      "reviewedSeverityCounts": {
+        "medium": 6,
+        "low": 4
+      },
+      "currentScope": {
+        "total": 10,
+        "rawSeverityCounts": {
+          "high": 1,
+          "medium": 4,
+          "low": 5
+        },
+        "reviewedSeverityCounts": {
+          "medium": 6,
+          "low": 4
+        },
+        "reviewedCategories": {
+          "csrf-state-change": 1,
+          "xss-unclear-source": 2,
+          "sql-injection": 1,
+          "kept-as-reported": 4,
+          "authenticated-or-limited-authorization-bypass": 2
+        }
+      },
+      "historicalUpdatePackages": {
+        "total": 0,
+        "rawSeverityCounts": {},
+        "reviewedSeverityCounts": {},
+        "reviewedCategories": {}
+      },
+      "caveats": [
+        "Type, file, line, description, recommendation and fix are preserved from the source journal.",
+        "Severity is replaced with reviewed triage severity."
+      ]
+    },
+    "feedbackSummary": {
+      "updatedAt": "2026-09-10T09:20:16+00:00",
+      "applied": 10
+    }
+  }
+}
