@@ -28,7 +28,10 @@ class Sign extends Base {
         try {
             $signer = new Security\Sign\Signer();
             $params = $signer->unsign($this->getAction()->getController()->getRequest()->get('signed'));
-            $params = unserialize(base64_decode($params));
+            $params = unserialize(base64_decode($params), ['allowed_classes'=>false]);
+            if (!is_array($params)) {
+                $params = [];
+            }
         }catch (\Exception $e){
             $this->addError(new Error(
                 Loc::getMessage('AWZ_YDELIVERY_API_FILTERS_ERR_SIGN'),
