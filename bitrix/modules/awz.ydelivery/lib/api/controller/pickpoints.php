@@ -59,6 +59,19 @@ class PickPoints extends Controller
         }
 
         $orderOb = Order::load($order);
+
+        global $APPLICATION;
+        // Если заказ не найден, предотвращаем Fatals
+        if (!$orderOb) {
+            $this->addError(new Error('Заказ не найден', 404));
+            return null;
+        }
+        $saleModulePermissions = $APPLICATION->GetGroupRight("sale");
+        if ($saleModulePermissions < "W") { // W - полный доступ (изменение)
+            $this->addError(new Error('Доступ запрещен', 403));
+            return null;
+        }
+
         $propertyCollection = $orderOb->getPropertyCollection();
         $res = null;
 

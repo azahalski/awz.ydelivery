@@ -639,7 +639,9 @@ class Pickup extends Base
             'geo_id'=>$locationGeoId,
             'profile_id'=>$this->getId(),
             's_id'=>bitrix_sessid(),
-            'terminal'=>$disableTerminal ? 'N' : 'Y'
+            'terminal'=>$disableTerminal ? 'N' : 'Y',
+            'user'=>'',
+            'order'=>''
         ))));
 
 

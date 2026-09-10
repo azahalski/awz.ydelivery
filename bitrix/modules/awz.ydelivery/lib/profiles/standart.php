@@ -501,7 +501,9 @@ class Standart extends Base
                 'address'=>$locationName,
                 'geo_id'=>$locationGeoId,
                 'profile_id'=>$this->getId(),
-                's_id'=>bitrix_sessid()
+                's_id'=>bitrix_sessid(),
+                'user'=>'',
+                'order'=>''
             ))));
 
 

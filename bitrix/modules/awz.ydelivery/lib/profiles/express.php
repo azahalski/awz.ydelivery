@@ -407,7 +407,9 @@ class Express extends Base
             'address'=>$locationName,
             'geo_id'=>$locationGeoId,
             'profile_id'=>$this->getId(),
-            's_id'=>bitrix_sessid()
+            's_id'=>bitrix_sessid(),
+            'user'=>'',
+            'order'=>''
         ))));
         if($request->get('AWZ_YD_CORD_ADRESS')){
             $pointHtml .= $request->get('AWZ_YD_CORD_ADRESS').$pointHtmlAdd;
