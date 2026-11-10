@@ -285,20 +285,20 @@ class OffersTable extends Entity\DataManager
             $allPredefined_dz = 0;
             $allCntRows = 0;
             foreach($prepareData['items'] as $item){
-                $allWeight += $item['count']*$item['physical_dims']['weight_gross'];
-                $allPredefined += $item['count']*$item['physical_dims']['predefined_volume'];
-                $allCntRows += $item['count'];
-                if($item['physical_dims']['dx'] > $allPredefined_dx) $allPredefined_dx = $item['physical_dims']['dx'];
-                if($item['physical_dims']['dy'] > $allPredefined_dy) $allPredefined_dy = $item['physical_dims']['dy'];
-                if($item['physical_dims']['dz'] > $allPredefined_dz) $allPredefined_dz = $item['physical_dims']['dz'];
+                $allWeight += floatval($item['count'])*floatval($item['physical_dims']['weight_gross']);
+                $allPredefined += floatval($item['count'])*floatval($item['physical_dims']['predefined_volume']);
+                $allCntRows += floatval($item['count']);
+                if(floatval($item['physical_dims']['dx']) > $allPredefined_dx) $allPredefined_dx = floatval($item['physical_dims']['dx']);
+                if(floatval($item['physical_dims']['dy']) > $allPredefined_dy) $allPredefined_dy = floatval($item['physical_dims']['dy']);
+                if(floatval($item['physical_dims']['dz']) > $allPredefined_dz) $allPredefined_dz = floatval($item['physical_dims']['dz']);
             }
             $maxDim = max($allPredefined_dx, $allPredefined_dy, $allPredefined_dz);
             if($allPredefined_dx == $maxDim){
-                $allPredefined_dx = $allPredefined_dx*$allCntRows;
+                $allPredefined_dx = $allPredefined_dx*floatval($allCntRows);
             }elseif($allPredefined_dy == $maxDim){
-                $allPredefined_dy = $allPredefined_dy*$allCntRows;
+                $allPredefined_dy = $allPredefined_dy*floatval($allCntRows);
             }elseif($allPredefined_dz == $maxDim){
-                $allPredefined_dz = $allPredefined_dz*$allCntRows;
+                $allPredefined_dz = $allPredefined_dz*floatval($allCntRows);
             }
             //$allPredefined = $allPredefined * 1.5;
             $prepareData['places'][0]['physical_dims']['weight_gross'] = intval($allWeight);
@@ -542,23 +542,23 @@ class OffersTable extends Entity\DataManager
             $allPredefined_dz = 0;
             $allCntRows = 0;
             foreach($prepareData['items'] as $item){
-                $allWeight += $item['count']*$item['physical_dims']['weight_gross'];
-                $allPredefined += $item['count']*$item['physical_dims']['predefined_volume'];
-                $allCntRows += $item['count'];
-                if($item['physical_dims']['dx'] > $allPredefined_dx) $allPredefined_dx = $item['physical_dims']['dx'];
-                if($item['physical_dims']['dy'] > $allPredefined_dy) $allPredefined_dy = $item['physical_dims']['dy'];
-                if($item['physical_dims']['dz'] > $allPredefined_dz) $allPredefined_dz = $item['physical_dims']['dz'];
+                $allWeight += floatval($item['count'])*floatval($item['physical_dims']['weight_gross']);
+                $allPredefined += floatval($item['count'])*floatval($item['physical_dims']['predefined_volume']);
+                $allCntRows += floatval($item['count']);
+                if(floatval($item['physical_dims']['dx']) > $allPredefined_dx) $allPredefined_dx = floatval($item['physical_dims']['dx']);
+                if(floatval($item['physical_dims']['dy']) > $allPredefined_dy) $allPredefined_dy = floatval($item['physical_dims']['dy']);
+                if(floatval($item['physical_dims']['dz']) > $allPredefined_dz) $allPredefined_dz = floatval($item['physical_dims']['dz']);
             }
             //$allPredefined = $allPredefined * 1.5;
             $prepareData['places'][0]['physical_dims']['weight_gross'] = intval($allWeight);
             //$prepareData['places'][0]['physical_dims']['predefined_volume'] = intval($allPredefined);
             $maxDim = max($allPredefined_dx, $allPredefined_dy, $allPredefined_dz);
             if($allPredefined_dx == $maxDim){
-                $allPredefined_dx = $allPredefined_dx*$allCntRows;
+                $allPredefined_dx = $allPredefined_dx*floatval($allCntRows);
             }elseif($allPredefined_dy == $maxDim){
-                $allPredefined_dy = $allPredefined_dy*$allCntRows;
+                $allPredefined_dy = $allPredefined_dy*floatval($allCntRows);
             }elseif($allPredefined_dz == $maxDim){
-                $allPredefined_dz = $allPredefined_dz*$allCntRows;
+                $allPredefined_dz = $allPredefined_dz*floatval($allCntRows);
             }
             $prepareData['places'][0]['physical_dims']['dx'] = intval($allPredefined_dx);
             $prepareData['places'][0]['physical_dims']['dy'] = intval($allPredefined_dy);

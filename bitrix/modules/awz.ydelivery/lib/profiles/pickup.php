@@ -245,7 +245,7 @@ class Pickup extends Base
         if(!$weight) {
             $weight = 0;
             foreach($items as $item){
-                $weight += $item['physical_dims']['weight_gross'] * $item['count'];
+                $weight += floatval($item['physical_dims']['weight_gross']) * floatval($item['count']);
             }
         }
 

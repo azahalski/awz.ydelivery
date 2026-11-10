@@ -157,7 +157,8 @@ class Checker {
                 Handler::MODULE_ID,
                 'CHECKER_INTERVAL_'.$profileId,
                 '',''
-                )*60*60;
+                );
+            $opt_interval = floatval($opt_interval)*60*60;
             if(!$opt_interval) $opt_interval = 0;
             if($disableTimer) $opt_interval = 0;
             $opt_maxcount = Option::get(
