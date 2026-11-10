@@ -5,15 +5,15 @@
   },
   "current_state": {
     "status": "needs_review",
-    "last_run_id": "awz.ydelivery-1789042616",
+    "last_run_id": "awz.ydelivery-1794287394",
     "archive_sha256": null,
-    "open_findings": 0,
+    "open_findings": 9,
     "blocking_findings_open": 0,
     "false_positive_findings": 0,
-    "accepted_risk_findings": 10,
-    "fixed_findings": 0,
+    "accepted_risk_findings": 0,
+    "fixed_findings": 10,
     "removed_findings": 0,
-    "total_findings": 10
+    "total_findings": 19
   },
   "runs": [
     {
@@ -33,6 +33,24 @@
         "reopened_findings": 0,
         "resolved_since_previous_run": 0
       }
+    },
+    {
+      "run_id": "awz.ydelivery-1794287394",
+      "created_at": "2026-11-10T05:12:34+00:00",
+      "archive_sha256": null,
+      "scanner_request_id": "awz.ydelivery-1794287394",
+      "input_summary": "Обнаружено 9 уязвимостей в 7 файлах при анализе 58 файлов модуля awz.ydelivery. Максимальная severity: medium. Найдено: 2× CSRF (admin/offers_list_edit.php и lib/api/controller/pickpoints.php — отсутствие CSRF-токенов на state-changing операциях), 1× SSRF с MITM (lib/ydapi.php — disabled SSL verification), 3× Insecure Deserialization (options.php, checker.php, helper.php — unserialize без allowed_classes), 2× XSS (offfers_list_edit.php, options.php — неэкранированный вывод IFRAME_TYPE/IFRAME), 1× потенциальный SQLi (install/index.php — сырой queryExecute). Из предыдущего скана не воспроизводятся: Authentication Bypass call_user_func в main.php (требует авторизации и ограничен callback map) и Authentication Bypass pickpoints (Sign-фильтр работает корректно с allowed_classes=>false).",
+      "summary": {
+        "current_scan_findings": 9,
+        "severity_counts": {
+          "medium": 5,
+          "low": 4
+        },
+        "new_findings": 9,
+        "still_open_findings": 0,
+        "reopened_findings": 0,
+        "resolved_since_previous_run": 10
+      }
     }
   ],
   "findings": [
@@ -41,18 +59,15 @@
       "fingerprint": "1d1bff98a9afdf3bd23f6f3d1256959c",
       "type": "CSRF",
       "severity": "medium",
-      "status": "accepted_risk",
+      "status": "fixed",
       "first_seen_run_id": "awz.ydelivery-1789042616",
       "last_seen_run_id": "awz.ydelivery-1789042616",
-      "resolved_run_id": null,
+      "resolved_run_id": "awz.ydelivery-1794287394",
       "original_location": {
         "file": "admin/offers_list_edit.php",
         "line": "92-95,257,1545"
       },
-      "current_location": {
-        "file": "admin/offers_list_edit.php",
-        "line": "92-95,257,1545"
-      },
+      "current_location": null,
       "latest_vulnerability": {
         "file": "admin/offers_list_edit.php",
         "line": "92-95,257,1545",
@@ -98,26 +113,34 @@
           "status": "accepted_risk",
           "note": "",
           "author": "Andrew Zahalski"
+        },
+        {
+          "run_id": "awz.ydelivery-1794287394",
+          "event": "resolved",
+          "at": "2026-11-10T05:12:34+00:00",
+          "status": "fixed"
         }
-      ]
+      ],
+      "resolution": {
+        "type": "not_reproduced_after_rescan",
+        "resolved_in_run": "awz.ydelivery-1794287394",
+        "reason": "The reviewed scan no longer reports a matching finding for the current archive."
+      }
     },
     {
       "journal_finding_id": "JF-00002",
       "fingerprint": "6e44ed67ec6e982b3e8407c93c7aa348",
       "type": "Cross-Site Scripting",
       "severity": "medium",
-      "status": "accepted_risk",
+      "status": "fixed",
       "first_seen_run_id": "awz.ydelivery-1789042616",
       "last_seen_run_id": "awz.ydelivery-1789042616",
-      "resolved_run_id": null,
+      "resolved_run_id": "awz.ydelivery-1794287394",
       "original_location": {
         "file": "admin/offers_list_edit.php",
         "line": "43-44,157-199,271-421"
       },
-      "current_location": {
-        "file": "admin/offers_list_edit.php",
-        "line": "43-44,157-199,271-421"
-      },
+      "current_location": null,
       "latest_vulnerability": {
         "file": "admin/offers_list_edit.php",
         "line": "43-44,157-199,271-421",
@@ -163,26 +186,34 @@
           "status": "accepted_risk",
           "note": "",
           "author": "Andrew Zahalski"
+        },
+        {
+          "run_id": "awz.ydelivery-1794287394",
+          "event": "resolved",
+          "at": "2026-11-10T05:12:34+00:00",
+          "status": "fixed"
         }
-      ]
+      ],
+      "resolution": {
+        "type": "not_reproduced_after_rescan",
+        "resolved_in_run": "awz.ydelivery-1794287394",
+        "reason": "The reviewed scan no longer reports a matching finding for the current archive."
+      }
     },
     {
       "journal_finding_id": "JF-00003",
       "fingerprint": "c03727f20ac4a5521b352a3562a337b0",
       "type": "Insecure Deserialization",
       "severity": "medium",
-      "status": "accepted_risk",
+      "status": "fixed",
       "first_seen_run_id": "awz.ydelivery-1789042616",
       "last_seen_run_id": "awz.ydelivery-1789042616",
-      "resolved_run_id": null,
+      "resolved_run_id": "awz.ydelivery-1794287394",
       "original_location": {
         "file": "options.php",
         "line": "125-126,135,331,644,731,769,828"
       },
-      "current_location": {
-        "file": "options.php",
-        "line": "125-126,135,331,644,731,769,828"
-      },
+      "current_location": null,
       "latest_vulnerability": {
         "file": "options.php",
         "line": "125-126,135,331,644,731,769,828",
@@ -228,26 +259,34 @@
           "status": "accepted_risk",
           "note": "",
           "author": "Andrew Zahalski"
+        },
+        {
+          "run_id": "awz.ydelivery-1794287394",
+          "event": "resolved",
+          "at": "2026-11-10T05:12:34+00:00",
+          "status": "fixed"
         }
-      ]
+      ],
+      "resolution": {
+        "type": "not_reproduced_after_rescan",
+        "resolved_in_run": "awz.ydelivery-1794287394",
+        "reason": "The reviewed scan no longer reports a matching finding for the current archive."
+      }
     },
     {
       "journal_finding_id": "JF-00004",
       "fingerprint": "d91d5c712490a8b214509dff56d44faf",
       "type": "SSRF",
       "severity": "medium",
-      "status": "accepted_risk",
+      "status": "fixed",
       "first_seen_run_id": "awz.ydelivery-1789042616",
       "last_seen_run_id": "awz.ydelivery-1789042616",
-      "resolved_run_id": null,
+      "resolved_run_id": "awz.ydelivery-1794287394",
       "original_location": {
         "file": "lib/ydapi.php",
         "line": "405-414"
       },
-      "current_location": {
-        "file": "lib/ydapi.php",
-        "line": "405-414"
-      },
+      "current_location": null,
       "latest_vulnerability": {
         "file": "lib/ydapi.php",
         "line": "405-414",
@@ -293,26 +332,34 @@
           "status": "accepted_risk",
           "note": "",
           "author": "Andrew Zahalski"
+        },
+        {
+          "run_id": "awz.ydelivery-1794287394",
+          "event": "resolved",
+          "at": "2026-11-10T05:12:34+00:00",
+          "status": "fixed"
         }
-      ]
+      ],
+      "resolution": {
+        "type": "not_reproduced_after_rescan",
+        "resolved_in_run": "awz.ydelivery-1794287394",
+        "reason": "The reviewed scan no longer reports a matching finding for the current archive."
+      }
     },
     {
       "journal_finding_id": "JF-00005",
       "fingerprint": "b6412725f594e832d31ab008ec35199c",
       "type": "Authentication Bypass",
       "severity": "medium",
-      "status": "accepted_risk",
+      "status": "fixed",
       "first_seen_run_id": "awz.ydelivery-1789042616",
       "last_seen_run_id": "awz.ydelivery-1789042616",
-      "resolved_run_id": null,
+      "resolved_run_id": "awz.ydelivery-1794287394",
       "original_location": {
         "file": "lib/main.php",
         "line": "190-205,294-333"
       },
-      "current_location": {
-        "file": "lib/main.php",
-        "line": "190-205,294-333"
-      },
+      "current_location": null,
       "latest_vulnerability": {
         "file": "lib/main.php",
         "line": "190-205,294-333",
@@ -358,26 +405,34 @@
           "status": "accepted_risk",
           "note": "",
           "author": "Andrew Zahalski"
+        },
+        {
+          "run_id": "awz.ydelivery-1794287394",
+          "event": "resolved",
+          "at": "2026-11-10T05:12:34+00:00",
+          "status": "fixed"
         }
-      ]
+      ],
+      "resolution": {
+        "type": "not_reproduced_after_rescan",
+        "resolved_in_run": "awz.ydelivery-1794287394",
+        "reason": "The reviewed scan no longer reports a matching finding for the current archive."
+      }
     },
     {
       "journal_finding_id": "JF-00006",
       "fingerprint": "578fab8f51f37a8f3f6eaa2177864f74",
       "type": "Authentication Bypass",
       "severity": "medium",
-      "status": "accepted_risk",
+      "status": "fixed",
       "first_seen_run_id": "awz.ydelivery-1789042616",
       "last_seen_run_id": "awz.ydelivery-1789042616",
-      "resolved_run_id": null,
+      "resolved_run_id": "awz.ydelivery-1794287394",
       "original_location": {
         "file": "lib/api/controller/pickpoints.php",
         "line": "23-44"
       },
-      "current_location": {
-        "file": "lib/api/controller/pickpoints.php",
-        "line": "23-44"
-      },
+      "current_location": null,
       "latest_vulnerability": {
         "file": "lib/api/controller/pickpoints.php",
         "line": "23-44",
@@ -423,26 +478,34 @@
           "status": "accepted_risk",
           "note": "",
           "author": "Andrew Zahalski"
+        },
+        {
+          "run_id": "awz.ydelivery-1794287394",
+          "event": "resolved",
+          "at": "2026-11-10T05:12:34+00:00",
+          "status": "fixed"
         }
-      ]
+      ],
+      "resolution": {
+        "type": "not_reproduced_after_rescan",
+        "resolved_in_run": "awz.ydelivery-1794287394",
+        "reason": "The reviewed scan no longer reports a matching finding for the current archive."
+      }
     },
     {
       "journal_finding_id": "JF-00007",
       "fingerprint": "858c759321ee1dfdada879a2d5c5c2b5",
       "type": "Cross-Site Scripting",
       "severity": "low",
-      "status": "accepted_risk",
+      "status": "fixed",
       "first_seen_run_id": "awz.ydelivery-1789042616",
       "last_seen_run_id": "awz.ydelivery-1789042616",
-      "resolved_run_id": null,
+      "resolved_run_id": "awz.ydelivery-1794287394",
       "original_location": {
         "file": "admin/offers_list_edit.php",
         "line": "880,881,1654-1655,1888-1889,1907-1908,1932-1933"
       },
-      "current_location": {
-        "file": "admin/offers_list_edit.php",
-        "line": "880,881,1654-1655,1888-1889,1907-1908,1932-1933"
-      },
+      "current_location": null,
       "latest_vulnerability": {
         "file": "admin/offers_list_edit.php",
         "line": "880,881,1654-1655,1888-1889,1907-1908,1932-1933",
@@ -488,26 +551,34 @@
           "status": "accepted_risk",
           "note": "",
           "author": "Andrew Zahalski"
+        },
+        {
+          "run_id": "awz.ydelivery-1794287394",
+          "event": "resolved",
+          "at": "2026-11-10T05:12:34+00:00",
+          "status": "fixed"
         }
-      ]
+      ],
+      "resolution": {
+        "type": "not_reproduced_after_rescan",
+        "resolved_in_run": "awz.ydelivery-1794287394",
+        "reason": "The reviewed scan no longer reports a matching finding for the current archive."
+      }
     },
     {
       "journal_finding_id": "JF-00008",
       "fingerprint": "2dfe2f05fc7f9506898d0ec0c7a5bf11",
       "type": "Insecure Deserialization",
       "severity": "low",
-      "status": "accepted_risk",
+      "status": "fixed",
       "first_seen_run_id": "awz.ydelivery-1789042616",
       "last_seen_run_id": "awz.ydelivery-1789042616",
-      "resolved_run_id": null,
+      "resolved_run_id": "awz.ydelivery-1794287394",
       "original_location": {
         "file": "lib/helper.php",
         "line": "707"
       },
-      "current_location": {
-        "file": "lib/helper.php",
-        "line": "707"
-      },
+      "current_location": null,
       "latest_vulnerability": {
         "file": "lib/helper.php",
         "line": "707",
@@ -553,26 +624,34 @@
           "status": "accepted_risk",
           "note": "",
           "author": "Andrew Zahalski"
+        },
+        {
+          "run_id": "awz.ydelivery-1794287394",
+          "event": "resolved",
+          "at": "2026-11-10T05:12:34+00:00",
+          "status": "fixed"
         }
-      ]
+      ],
+      "resolution": {
+        "type": "not_reproduced_after_rescan",
+        "resolved_in_run": "awz.ydelivery-1794287394",
+        "reason": "The reviewed scan no longer reports a matching finding for the current archive."
+      }
     },
     {
       "journal_finding_id": "JF-00009",
       "fingerprint": "3b3b881f01042b593894d6e269c9279e",
       "type": "Insecure Deserialization",
       "severity": "low",
-      "status": "accepted_risk",
+      "status": "fixed",
       "first_seen_run_id": "awz.ydelivery-1789042616",
       "last_seen_run_id": "awz.ydelivery-1789042616",
-      "resolved_run_id": null,
+      "resolved_run_id": "awz.ydelivery-1794287394",
       "original_location": {
         "file": "lib/checker.php",
         "line": "139-140,169,197,228,434"
       },
-      "current_location": {
-        "file": "lib/checker.php",
-        "line": "139-140,169,197,228,434"
-      },
+      "current_location": null,
       "latest_vulnerability": {
         "file": "lib/checker.php",
         "line": "139-140,169,197,228,434",
@@ -618,26 +697,34 @@
           "status": "accepted_risk",
           "note": "",
           "author": "Andrew Zahalski"
+        },
+        {
+          "run_id": "awz.ydelivery-1794287394",
+          "event": "resolved",
+          "at": "2026-11-10T05:12:34+00:00",
+          "status": "fixed"
         }
-      ]
+      ],
+      "resolution": {
+        "type": "not_reproduced_after_rescan",
+        "resolved_in_run": "awz.ydelivery-1794287394",
+        "reason": "The reviewed scan no longer reports a matching finding for the current archive."
+      }
     },
     {
       "journal_finding_id": "JF-00010",
       "fingerprint": "d60b1fe723ca6d5cfada749e8ac3b63b",
       "type": "Information Disclosure",
       "severity": "low",
-      "status": "accepted_risk",
+      "status": "fixed",
       "first_seen_run_id": "awz.ydelivery-1789042616",
       "last_seen_run_id": "awz.ydelivery-1789042616",
-      "resolved_run_id": null,
+      "resolved_run_id": "awz.ydelivery-1794287394",
       "original_location": {
         "file": "install/admin/awz_ydelivery_offers_list_edit.php",
         "line": "2"
       },
-      "current_location": {
-        "file": "install/admin/awz_ydelivery_offers_list_edit.php",
-        "line": "2"
-      },
+      "current_location": null,
       "latest_vulnerability": {
         "file": "install/admin/awz_ydelivery_offers_list_edit.php",
         "line": "2",
@@ -683,6 +770,476 @@
           "status": "accepted_risk",
           "note": "",
           "author": "Andrew Zahalski"
+        },
+        {
+          "run_id": "awz.ydelivery-1794287394",
+          "event": "resolved",
+          "at": "2026-11-10T05:12:34+00:00",
+          "status": "fixed"
+        }
+      ],
+      "resolution": {
+        "type": "not_reproduced_after_rescan",
+        "resolved_in_run": "awz.ydelivery-1794287394",
+        "reason": "The reviewed scan no longer reports a matching finding for the current archive."
+      }
+    },
+    {
+      "journal_finding_id": "JF-00011",
+      "fingerprint": "b3ade8c97fa3a23ab1278509a380cd11",
+      "type": "CSRF",
+      "severity": "medium",
+      "status": "open",
+      "first_seen_run_id": "awz.ydelivery-1794287394",
+      "last_seen_run_id": "awz.ydelivery-1794287394",
+      "resolved_run_id": null,
+      "original_location": {
+        "file": "admin/offers_list_edit.php",
+        "line": "92-95,1681-1701,1711-1728"
+      },
+      "current_location": {
+        "file": "admin/offers_list_edit.php",
+        "line": "92-95,1681-1701,1711-1728"
+      },
+      "latest_vulnerability": {
+        "file": "admin/offers_list_edit.php",
+        "line": "92-95,1681-1701,1711-1728",
+        "type": "CSRF",
+        "severity": "medium",
+        "description": "Подтверждена уязвимость: отсутствие проверки check_bitrix_sessid() в обработчиках AJAX/POST-запросов с действием ($_REQUEST['action']). Файл обрабатывает критические state-changing операции — подтверждение оффера (send_offer, строка 92), удаление заявки (DELETE, строка 1681) и отмену заявки (CANSEL, строка 1711). Защита GetGroupRight($module_id) проверяет только права доступа, но не препятствует кросс-сайтовой подделке запроса: злоумышленник может заставить авторизованного администратора выполнить эти действия через поддельную форму.",
+        "recommendation": "Добавить проверку check_bitrix_sessid() в начале каждого обработчика POST-запросов или использовать \\Bitrix\\Main\\Security\\Csrf()->check(). В формах с кнопками DELETE/CANSEL добавить скрытое поле с токеном сессии.",
+        "fix": "// Before:\nif($_REQUEST['action'] == 'send_offer'){\n    $api = Helper::getApiByProfileId($curProfile);\n\n// After:\nif($_REQUEST['action'] == 'send_offer'){\n    if(!check_bitrix_sessid()) return;\n    $api = Helper::getApiByProfileId($curProfile);",
+        "reviewed": {
+          "oldSeverity": "medium",
+          "newSeverity": "medium",
+          "changed": false,
+          "category": "csrf-state-change",
+          "versionScope": "current",
+          "version": "current",
+          "currentVersionRelevance": "present-in-current-scan",
+          "action": "add-sessid-and-owner-checks",
+          "confidence": "medium",
+          "rationale": "Kept as medium because the finding describes state change without check_bitrix_sessid; raise only if cross-user deletion or higher-impact state change is confirmed."
+        }
+      },
+      "events": [
+        {
+          "run_id": "awz.ydelivery-1794287394",
+          "event": "detected",
+          "at": "2026-11-10T05:12:34+00:00",
+          "location": {
+            "file": "admin/offers_list_edit.php",
+            "line": "92-95,1681-1701,1711-1728"
+          },
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "journal_finding_id": "JF-00012",
+      "fingerprint": "92e3084ad671c7e938675ca558423bf7",
+      "type": "CSRF",
+      "severity": "medium",
+      "status": "open",
+      "first_seen_run_id": "awz.ydelivery-1794287394",
+      "last_seen_run_id": "awz.ydelivery-1794287394",
+      "resolved_run_id": null,
+      "original_location": {
+        "file": "lib/api/controller/pickpoints.php",
+        "line": "23-44"
+      },
+      "current_location": {
+        "file": "lib/api/controller/pickpoints.php",
+        "line": "23-44"
+      },
+      "latest_vulnerability": {
+        "file": "lib/api/controller/pickpoints.php",
+        "line": "23-44",
+        "type": "CSRF",
+        "severity": "medium",
+        "description": "Подтверждена уязвимость: все три action'а контроллера (list, baloon, setorder) в configureActions() не включают \\Bitrix\\Main\\Engine\\ActionFilter\\Csrf. Метод setorderAction изменяет заказ (устанавливает поле ПВЗ через $propertyCollection->setValue() и вызывает $orderOb->save()), но защитён только кастомным Sign-фильтром и Scope::AJAX. Sign-фильтр проверяет подпись параметров яндекса, но не защищает от CSRF на уровне Bitrix сессии. Атакующий может выполнить state-changing запрос при наличии действительной signed-параметрики от того же профиля.",
+        "recommendation": "Добавить \\Bitrix\\Main\\Engine\\ActionFilter\\Csrf() в prefilters для всех action'ов, либо реализовать собственную CSRF-проверку через check_bitrix_sessid() внутри setorderAction.",
+        "fix": "// Before:\n'list' => array(\n    'prefilters' => array(\n        new Scope(Scope::AJAX),\n        new Sign(array('address','geo_id','profile_id','page','order','user','s_id','terminal'))\n    )\n)\n\n// After:\n'list' => array(\n    'prefilters' => array(\n        new \\Bitrix\\Main\\Engine\\ActionFilter\\Csrf(),\n        new Scope(Scope::AJAX),\n        new Sign(array('address','geo_id','profile_id','page','order','user','s_id','terminal'))\n    )\n)",
+        "reviewed": {
+          "oldSeverity": "medium",
+          "newSeverity": "medium",
+          "changed": false,
+          "category": "csrf-state-change",
+          "versionScope": "current",
+          "version": "current",
+          "currentVersionRelevance": "present-in-current-scan",
+          "action": "add-sessid-and-owner-checks",
+          "confidence": "medium",
+          "rationale": "Kept as medium because the finding describes state change without check_bitrix_sessid; raise only if cross-user deletion or higher-impact state change is confirmed."
+        }
+      },
+      "events": [
+        {
+          "run_id": "awz.ydelivery-1794287394",
+          "event": "detected",
+          "at": "2026-11-10T05:12:34+00:00",
+          "location": {
+            "file": "lib/api/controller/pickpoints.php",
+            "line": "23-44"
+          },
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "journal_finding_id": "JF-00013",
+      "fingerprint": "46a21082d1085b51c1f45e26a7082db7",
+      "type": "SSRF",
+      "severity": "medium",
+      "status": "open",
+      "first_seen_run_id": "awz.ydelivery-1794287394",
+      "last_seen_run_id": "awz.ydelivery-1794287394",
+      "resolved_run_id": null,
+      "original_location": {
+        "file": "lib/ydapi.php",
+        "line": "406"
+      },
+      "current_location": {
+        "file": "lib/ydapi.php",
+        "line": "406"
+      },
+      "latest_vulnerability": {
+        "file": "lib/ydapi.php",
+        "line": "406",
+        "type": "SSRF",
+        "severity": "medium",
+        "description": "Подтверждённая уязвимость: вызов $httpClient->disableSslVerification() отключает проверку TLS-сертификата (SSL_VERIFYPEER и SSL_VERIFYHOST) при исходящих HTTPS-запросах к API Яндекс Доставки (строка 406). Вместе с передачей Authorization: Bearer токена это открывает вектор MITM-атаки: злоумышленник в сети (публичный Wi-Fi, compromised роутер) может перехватить токен авторизации и отправить ложные ответы. В коде отсутствует валидация целевого хоста (только b2b.taxi.yandex.net / b2b.taxi.tst.yandex.net), поэтому если токен будет украден по MITM, атакующий получит полный доступ к API. Тип: SSRF с insecure TLS/MITM.",
+        "recommendation": "Убрать disableSslVerification(). Если проблема в самоподписанных сертификатах на тестовой среде — использовать опции httpClient с явно указанным CA bundle через контекст или настроить корректные сертификаты. Для production всегда включать верификацию TLS.",
+        "fix": "// Before:\n$httpClient = new HttpClient();\n$httpClient->disableSslVerification();\n\n// After:\n$httpClient = new HttpClient();\n// remove disableSslVerification()\n// ensure proper SSL certificates are configured on server",
+        "reviewed": {
+          "oldSeverity": "medium",
+          "newSeverity": "medium",
+          "changed": false,
+          "category": "potential-api-token-exposure",
+          "versionScope": "current",
+          "version": "current",
+          "currentVersionRelevance": "present-in-current-scan",
+          "action": "validate-token-kind-and-keep-server-side",
+          "confidence": "medium",
+          "rationale": "Kept as a real issue if the value is an OAuth/API-Key/bearer-style secret or if transport/authentication handling can expose such secrets. If the field is only a public widget/model identifier, this finding should be removed or downgraded after code/value validation."
+        }
+      },
+      "events": [
+        {
+          "run_id": "awz.ydelivery-1794287394",
+          "event": "detected",
+          "at": "2026-11-10T05:12:34+00:00",
+          "location": {
+            "file": "lib/ydapi.php",
+            "line": "406"
+          },
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "journal_finding_id": "JF-00014",
+      "fingerprint": "53640dd3ea25d92e036bd70d66c9d54c",
+      "type": "Insecure Deserialization",
+      "severity": "medium",
+      "status": "open",
+      "first_seen_run_id": "awz.ydelivery-1794287394",
+      "last_seen_run_id": "awz.ydelivery-1794287394",
+      "resolved_run_id": null,
+      "original_location": {
+        "file": "options.php",
+        "line": "125,135,331,644,731,769,828"
+      },
+      "current_location": {
+        "file": "options.php",
+        "line": "125,135,331,644,731,769,828"
+      },
+      "latest_vulnerability": {
+        "file": "options.php",
+        "line": "125,135,331,644,731,769,828",
+        "type": "Insecure Deserialization",
+        "severity": "medium",
+        "description": "Подтверждена уязвимость: множество вызовов unserialize() для данных из хранилища модуля COption без параметра ['allowed_classes'=>false]. Строки: 125 (YD_STATUSLIST), 135 (YD_STATUSLIST_EX), 331 (CHECKER_FIN_DSBL), 644 (PAY_LINK), 731 (CHECKER_FIN), 769/828 (PARAMS_STATUS_FROM). Хотя источник данных — настройки модуля, требующие прав W для записи, сериализованные данные могут быть модифицированы через любую другую уязвимость модуля (например, CSRF в этом же файле, позволяющий перезаписать OPTION-значение). Без allowed_classes фильтр unserialize может вызвать POP-цепочку через магические методы загруженных классов.",
+        "recommendation": "Добавить ['allowed_classes'=>false] ко всем вызовам unserialize(), читающим данные из Option::get или из $_REQUEST через промежуточное хранение в Option.",
+        "fix": "// Before:\n$statusList = unserialize(Option::get($module_id, 'YD_STATUSLIST', '', ''));\n\n// After:\n$statusList = unserialize(Option::get($module_id, 'YD_STATUSLIST', '', ''), ['allowed_classes'=>false]);",
+        "reviewed": {
+          "oldSeverity": "medium",
+          "newSeverity": "medium",
+          "changed": false,
+          "category": "kept-as-reported",
+          "versionScope": "current",
+          "version": "current",
+          "currentVersionRelevance": "present-in-current-scan",
+          "action": "fix",
+          "confidence": "medium",
+          "rationale": "Severity left unchanged after review; no stronger Bitrix/BUS-specific downgrade condition was identified from the journal text alone."
+        }
+      },
+      "events": [
+        {
+          "run_id": "awz.ydelivery-1794287394",
+          "event": "detected",
+          "at": "2026-11-10T05:12:34+00:00",
+          "location": {
+            "file": "options.php",
+            "line": "125,135,331,644,731,769,828"
+          },
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "journal_finding_id": "JF-00015",
+      "fingerprint": "d9b07ab841305079cb68ea0093649b82",
+      "type": "Insecure Deserialization",
+      "severity": "low",
+      "status": "open",
+      "first_seen_run_id": "awz.ydelivery-1794287394",
+      "last_seen_run_id": "awz.ydelivery-1794287394",
+      "resolved_run_id": null,
+      "original_location": {
+        "file": "lib/checker.php",
+        "line": "139,140,170,198,229,435"
+      },
+      "current_location": {
+        "file": "lib/checker.php",
+        "line": "139,140,170,198,229,435"
+      },
+      "latest_vulnerability": {
+        "file": "lib/checker.php",
+        "line": "139,140,170,198,229,435",
+        "type": "Insecure Deserialization",
+        "severity": "low",
+        "description": "Подозрение: множество вызовов unserialize() для данных из COption без allowed_classes. Строки: 139 (YD_STATUSLIST), 140 (YD_STATUSLIST_EX), 170 (CHECKER_FIN), 198 (CHECKER_FIN_DSBL), 229 (CHECKER_CURSOR_UPS), 435 (PARAMS_STATUS_FROM). Класс Checker запускается как агент Bitrix (инициализируется в install/index.php via CAgent::AddAgent) и выполняется от имени системы. Источник — Option-хранилище, требующее прав администратора для записи. Сценарий эксплуатации требует компрометации Option-значений через другую уязвимость (CSRF в admin/) или прямой SQL-доступ.",
+        "recommendation": "Добавить ['allowed_classes'=>false] ко всем вызовам unserialize() в классе Checker, читающим данные из Option::get().",
+        "fix": "// Before:\n$statusList = unserialize(Option::get(Handler::MODULE_ID, 'YD_STATUSLIST', '', ''));\n\n// After:\n$statusList = unserialize(Option::get(Handler::MODULE_ID, 'YD_STATUSLIST', '', ''), ['allowed_classes'=>false]);",
+        "reviewed": {
+          "oldSeverity": "low",
+          "newSeverity": "low",
+          "changed": false,
+          "category": "kept-as-reported",
+          "versionScope": "current",
+          "version": "current",
+          "currentVersionRelevance": "present-in-current-scan",
+          "action": "fix",
+          "confidence": "medium",
+          "rationale": "Severity left unchanged after review; no stronger Bitrix/BUS-specific downgrade condition was identified from the journal text alone."
+        }
+      },
+      "events": [
+        {
+          "run_id": "awz.ydelivery-1794287394",
+          "event": "detected",
+          "at": "2026-11-10T05:12:34+00:00",
+          "location": {
+            "file": "lib/checker.php",
+            "line": "139,140,170,198,229,435"
+          },
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "journal_finding_id": "JF-00016",
+      "fingerprint": "3510b441fd544208f3057a5ac3cda977",
+      "type": "Insecure Deserialization",
+      "severity": "low",
+      "status": "open",
+      "first_seen_run_id": "awz.ydelivery-1794287394",
+      "last_seen_run_id": "awz.ydelivery-1794287394",
+      "resolved_run_id": null,
+      "original_location": {
+        "file": "lib/helper.php",
+        "line": "707"
+      },
+      "current_location": {
+        "file": "lib/helper.php",
+        "line": "707"
+      },
+      "latest_vulnerability": {
+        "file": "lib/helper.php",
+        "line": "707",
+        "type": "Insecure Deserialization",
+        "severity": "low",
+        "description": "Подозрение: unserialize($valP) на строке 707 читает данные из Option::get('PAY_LINK_...'). Класс Helper используется доставочными профилями и вызывается при расчёте стоимости доставки. Источник данных — Option-хранилище, требующее прав администратора для записи. Без allowed_classes фильтр возможна десериализация произвольных объектов, если значение PAY_LINK было когда-либо записано с вредоносным содержимым.",
+        "recommendation": "Добавить ['allowed_classes'=>false] к unserialize() на строке 707.",
+        "fix": "// Before:\n$valP = unserialize($valP);\n\n// After:\n$valP = unserialize($valP, ['allowed_classes'=>false]);",
+        "reviewed": {
+          "oldSeverity": "low",
+          "newSeverity": "low",
+          "changed": false,
+          "category": "kept-as-reported",
+          "versionScope": "current",
+          "version": "current",
+          "currentVersionRelevance": "present-in-current-scan",
+          "action": "fix",
+          "confidence": "medium",
+          "rationale": "Severity left unchanged after review; no stronger Bitrix/BUS-specific downgrade condition was identified from the journal text alone."
+        }
+      },
+      "events": [
+        {
+          "run_id": "awz.ydelivery-1794287394",
+          "event": "detected",
+          "at": "2026-11-10T05:12:34+00:00",
+          "location": {
+            "file": "lib/helper.php",
+            "line": "707"
+          },
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "journal_finding_id": "JF-00017",
+      "fingerprint": "233cf66f8a87596377b4bf1f74840e44",
+      "type": "Cross-Site Scripting",
+      "severity": "low",
+      "status": "open",
+      "first_seen_run_id": "awz.ydelivery-1794287394",
+      "last_seen_run_id": "awz.ydelivery-1794287394",
+      "resolved_run_id": null,
+      "original_location": {
+        "file": "admin/offers_list_edit.php",
+        "line": "672-673,790-791,1654-1655,1888-1889,1907-1908,1932-1933,2278-2279,2459-2460,2489-2490"
+      },
+      "current_location": {
+        "file": "admin/offers_list_edit.php",
+        "line": "672-673,790-791,1654-1655,1888-1889,1907-1908,1932-1933,2278-2279,2459-2460,2489-2490"
+      },
+      "latest_vulnerability": {
+        "file": "admin/offers_list_edit.php",
+        "line": "672-673,790-791,1654-1655,1888-1889,1907-1908,1932-1933,2278-2279,2459-2460,2489-2490",
+        "type": "Cross-Site Scripting",
+        "severity": "low",
+        "description": "Подтверждена уязвимость: прямое выведение значений $_REQUEST['IFRAME_TYPE'] и $_REQUEST['IFRAME'] в HTML hidden-поля форм без экранирования. Зафиксировано в 10 местах файла (строки 672-673, 790-791, 1654-1655, 1888-1889, 1907-1908, 1932-1933, 2278-2279, 2459-2460, 2489-2490). Значения попадают в атрибут value=\"\" тегов <input>, что позволяет внедрить двойные кавычки и XSS-код. Severity low: контекст — административная панель (требуется авторизация с правом R/W на модуль), вывод виден только самому администратору (self-XSS).",
+        "recommendation": "Заменить <?=$_REQUEST['IFRAME_TYPE']?> на <?echo htmlspecialcharsEx($_REQUEST['IFRAME_TYPE'])?> во всех местах вывода. Аналогично для IFRAME.",
+        "fix": "// Before:\n<input type=\"hidden\" name=\"IFRAME_TYPE\" value=\"<?=$_REQUEST['IFRAME_TYPE']?>\">\n\n// After:\n<input type=\"hidden\" name=\"IFRAME_TYPE\" value=\"<?=$_REQUEST['IFRAME_TYPE']?>\">",
+        "reviewed": {
+          "oldSeverity": "low",
+          "newSeverity": "low",
+          "changed": false,
+          "category": "xss-unclear-source",
+          "versionScope": "current",
+          "version": "current",
+          "currentVersionRelevance": "present-in-current-scan",
+          "action": "validate-source-and-fix-escaping",
+          "confidence": "low",
+          "rationale": "Adjusted conservatively because the journal does not clearly prove a low-privileged or public payload source. Confirm source permissions before treating as a blocker."
+        }
+      },
+      "events": [
+        {
+          "run_id": "awz.ydelivery-1794287394",
+          "event": "detected",
+          "at": "2026-11-10T05:12:34+00:00",
+          "location": {
+            "file": "admin/offers_list_edit.php",
+            "line": "672-673,790-791,1654-1655,1888-1889,1907-1908,1932-1933,2278-2279,2459-2460,2489-2490"
+          },
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "journal_finding_id": "JF-00018",
+      "fingerprint": "e8c3dab516ab19072dc0d0ebd197567c",
+      "type": "SQL Injection",
+      "severity": "medium",
+      "status": "open",
+      "first_seen_run_id": "awz.ydelivery-1794287394",
+      "last_seen_run_id": "awz.ydelivery-1794287394",
+      "resolved_run_id": null,
+      "original_location": {
+        "file": "install/index.php",
+        "line": "215-253"
+      },
+      "current_location": {
+        "file": "install/index.php",
+        "line": "215-253"
+      },
+      "latest_vulnerability": {
+        "file": "install/index.php",
+        "line": "215-253",
+        "type": "SQL Injection",
+        "severity": "medium",
+        "description": "Подтверждена уязвимость: функция checkOldInstallTables() выполняет динамический SQL через Application::getConnection()->queryExecute() с конструируемым ALTER TABLE запросом (строка 242). Хотя сами имена таблиц захардкожены (b_awz_ydelivery_offer, b_awz_ydelivery_pvz), метод InstallDB() (строка 40) вызывает RunSQLBatch() который выполняет весь пакет SQL из внешнего файла install/db/mysql/install.sql. Если этот файл был подменён при установке модуля, любые команды будут выполнены от имени базы данных. Кроме того, queryExecute() принимает сырой SQL-без параметризации, что означает что любая будущая динамическая конкатенация переменных будет уязвима. Функция вызывается при DoInstall() —操作中 требуется право администратора сайта.",
+        "recommendation": "Для миграций таблиц использовать Bitrix DDL API: CDatabase->QueryExecute() с проверкой имен таблиц через allowlist. Убедиться что SQL-файлы установки подписаны и проверяются целостностью.",
+        "fix": "// Before:\n$sql = 'ALTER TABLE `b_awz_ydelivery_offer` ADD `LAST_STATUS` varchar(65) DEFAULT NULL';\n$connection->queryExecute($sql);\n\n// After:\n$allowlist = ['b_awz_ydelivery_offer', 'b_awz_ydelivery_pvz'];\n$tableName = 'b_awz_ydelivery_offer';\nif(in_array($tableName, $allowlist)){\n    $connection->queryExecute(\"ALTER TABLE `{$tableName}` ADD `LAST_STATUS` varchar(65) DEFAULT NULL\");\n}",
+        "reviewed": {
+          "oldSeverity": "medium",
+          "newSeverity": "medium",
+          "changed": false,
+          "category": "sql-injection",
+          "versionScope": "current",
+          "version": "current",
+          "currentVersionRelevance": "present-in-current-scan",
+          "action": "parameterize-query",
+          "confidence": "medium",
+          "rationale": "Kept as medium by default under the BUS Marketplace triage policy; raise only when exploit impact is proven beyond the journal text."
+        }
+      },
+      "events": [
+        {
+          "run_id": "awz.ydelivery-1794287394",
+          "event": "detected",
+          "at": "2026-11-10T05:12:34+00:00",
+          "location": {
+            "file": "install/index.php",
+            "line": "215-253"
+          },
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "journal_finding_id": "JF-00019",
+      "fingerprint": "ce90b9c1cb0995c45b275ef0054462c3",
+      "type": "Cross-Site Scripting",
+      "severity": "low",
+      "status": "open",
+      "first_seen_run_id": "awz.ydelivery-1794287394",
+      "last_seen_run_id": "awz.ydelivery-1794287394",
+      "resolved_run_id": null,
+      "original_location": {
+        "file": "options.php",
+        "line": "880-881"
+      },
+      "current_location": {
+        "file": "options.php",
+        "line": "880-881"
+      },
+      "latest_vulnerability": {
+        "file": "options.php",
+        "line": "880-881",
+        "type": "Cross-Site Scripting",
+        "severity": "low",
+        "description": "Подтверждена уязвимость: значения $_REQUEST['IFRAME_TYPE'] и $_REQUEST['IFRAME'] напрямую выводятся в атрибуты value HTML hidden-полей (строки 880-881) без экранирования htmlspecialcharsEx(). Контекст — страница настроек модуля (административная панель, requires GetGroupRight >= R). Self-XSS: атака видна только самому жертве-администратору, но позволяет демонстрацию XSS-концепта.",
+        "recommendation": "Экранировать значения из $_REQUEST перед выводом в HTML-атрибуты с помощью htmlspecialcharsEx().",
+        "fix": "// Before:\n<input type=\"hidden\" name=\"IFRAME_TYPE\" value=\"<?=$_REQUEST['IFRAME_TYPE']?>\">\n\n// After:\n<input type=\"hidden\" name=\"IFRAME_TYPE\" value=\"<?=htmlspecialcharsEx($_REQUEST['IFRAME_TYPE'])?>\">",
+        "reviewed": {
+          "oldSeverity": "low",
+          "newSeverity": "low",
+          "changed": false,
+          "category": "xss-unclear-source",
+          "versionScope": "current",
+          "version": "current",
+          "currentVersionRelevance": "present-in-current-scan",
+          "action": "validate-source-and-fix-escaping",
+          "confidence": "low",
+          "rationale": "Adjusted conservatively because the journal does not clearly prove a low-privileged or public payload source. Confirm source permissions before treating as a blocker."
+        }
+      },
+      "events": [
+        {
+          "run_id": "awz.ydelivery-1794287394",
+          "event": "detected",
+          "at": "2026-11-10T05:12:34+00:00",
+          "location": {
+            "file": "options.php",
+            "line": "880-881"
+          },
+          "status": "open"
         }
       ]
     }
